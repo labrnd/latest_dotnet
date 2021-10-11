@@ -1,0 +1,11 @@
+{
+  "RoslynExtensionsOptions": {
+    "enableAnalyzersSupport": true
+  },
+  "FormattingOptions": {
+    "enableEditorConfigSupport": true
+  },
+  "formattingOptions": {
+    "SpaceAfterCast": true
+  }
+}
