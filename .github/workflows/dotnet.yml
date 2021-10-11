@@ -34,6 +34,9 @@ jobs:
     - name: Run dotnet format
       run: dotnet format --check --verbosity diagnostic
 
+    - name: Restore dependencies
+      run: dotnet restore
+
     # From https://github.com/dotnet/code-analysis
     - name: Run .NET Code Analysis
       uses: dotnet/code-analysis@v1
@@ -44,9 +47,7 @@ jobs:
         build-breaking: true
         all-categories: all
 
-    - name: Restore dependencies
-      run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore -warnAsError
     - name: Test
       run: dotnet test --no-build --verbosity normal
