@@ -33,6 +33,35 @@ app.UseHttpLogging();
 app.UseSwagger();
 app.MapGet("/", () => "Hello World 11!");
 app.MapGet("/person", () => new Person("Jon", "Doe"));
+app.MapGet("/csharp/nestedproperties", () =>
+{
+    List<Status> statuses = new()
+    {
+        new(Category.Normal, new(20, false, 20)),
+        new(Category.Warning, new(20, false, 60)),
+        new(Category.Danger, new(20, true, 60)),
+        new(Category.Danger, new(100, false, 20)),
+        new(Category.Unknown, new(100, false, 20))
+    };
+
+    var messages = new List<string>();
+    foreach (Status status in statuses)
+    {
+        string message = status switch
+        {
+            { Category: Category.Normal } => "Let the good times roll",
+            { Category: Category.Warning, Reading.PM25: > 50 and < 100 } => "Check the air filters",
+            { Reading.PM25: > 200 } => "There must be a fire somewhere. Don't go outside.",
+            { Reading.SmokeDetected: true } => "We have a fire!",
+            { Category: Category.Danger } => "Something is badly wrong",
+            _ => "Unknown status"
+        };
+
+        messages.Add(message);
+    }
+
+    return messages;
+});
 
 app.UseSwaggerUI();
 app.UseEndpoints(endpoints =>
@@ -44,4 +73,16 @@ app.UseEndpoints(endpoints =>
 
 await app.RunAsync();
 
+record struct Reading(int Temperature, bool SmokeDetected, int PM25);
+record struct Status(Category Category, Reading Reading);
+enum Category
+{
+    Normal,
+    Warning,
+    Danger,
+    Unknown
+}
+
 public record Person(string FirstName, string LastName);
+
+
