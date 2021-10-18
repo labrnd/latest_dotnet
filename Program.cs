@@ -32,7 +32,7 @@ app.UseRouting();
 app.UseHttpLogging();
 app.UseSwagger();
 app.MapGet("/", () => "Hello World 11!");
-app.MapGet("/person", () => new Person("Aleksey", "Pyatlin"));
+app.MapGet("/person", () => new Person("Jon", "Doe"));
 
 app.UseSwaggerUI();
 app.UseEndpoints(endpoints =>

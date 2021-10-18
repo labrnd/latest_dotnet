@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace Controllers;
@@ -15,11 +15,11 @@ public class WeatherForecastController : ControllerBase
     [HttpGet]
     public IEnumerable<WeatherForecast> Get()
     {
-        this.Response.Headers.Add("My-Response-Header", "My-Response-Header-Value");
+        this.Response.Headers.Add("My-Response-Header", "My-Response-Header-Value-Test");
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
+            TemperatureC = Random.Shared.Next(-20, 70),
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
         })
         .ToArray();
